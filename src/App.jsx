@@ -6,6 +6,14 @@ import './App.css';
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
+const TEST_GIFS = [
+	'https://media.giphy.com/media/YWB6Hi29vA3jG/giphy.gif',
+	'https://media.giphy.com/media/tIZUToOMEFGM0/giphy.gif',
+	'https://media.giphy.com/media/rCdzKS756yiGs/giphy.gif',
+	'https://media.giphy.com/media/1qGaYAEAk7eOA/giphy.gif',
+  'https://media.giphy.com/media/8zs2yvHwMTWU0/giphy.gif'
+]
+
 const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
 
@@ -52,6 +60,18 @@ const App = () => {
     </button>
   );
 
+  const renderConnectedContainer = () => (
+  <div className="connected-container">
+    <div className="gif-grid">
+      {TEST_GIFS.map(gif => (
+        <div className="gif-item" key={gif}>
+          <img src={gif} alt={gif} />
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
   useEffect(() => {
     const onLoad = async () => {
       await checkIfWalletIsConnected();
@@ -64,11 +84,12 @@ const App = () => {
     <div className="App">
       <div className={walletAddress ? 'authed-container' : 'container'}>
         <div className="header-container">
-          <p className="header">🖼 GIF Portal</p>
+          <p className="header">🖼 One Piece GIF Portal</p>
           <p className="sub-text">
-            View your GIF collection in the metaverse ✨
+            View your One Piece GIF collection in the metaverse ✨
           </p>
           {!walletAddress && renderNotConnectedContainer()}
+          {walletAddress && renderConnectedContainer()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
