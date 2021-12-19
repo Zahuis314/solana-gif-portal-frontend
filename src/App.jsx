@@ -7,11 +7,13 @@ import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, Provider, web3 } from '@project-serum/anchor';
 
 import idl from './idl.json';
+import kp from './keypair.json'
 
 const { SystemProgram, Keypair } = web3;
 
-// Create a keypair for the account that will hold the GIF data.
-let baseAccount = Keypair.generate();
+const arr = Object.values(kp._keypair.secretKey)
+const secret = new Uint8Array(arr)
+const baseAccount = web3.Keypair.fromSecretKey(secret)
 
 // Get our program's id from the IDL file.
 const programID = new PublicKey(idl.metadata.address);
